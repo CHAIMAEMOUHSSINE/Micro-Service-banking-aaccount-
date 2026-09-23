@@ -9,32 +9,38 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
-import static org.springframework.data.util.TypeUtils.type;
-
 @Service
 @Transactional
-public class AccountServiceImpl  implements AccountService {
-    @Override
+public class AccountServiceImpl implements AccountService {
 
-    public BankAccountResponseDTO addAccount(BankAccountRequestDTO bankAccountRequestDTO) {
+    private final BankAccountRepository bankAccountRepository;
+
+    public AccountServiceImpl(BankAccountRepository bankAccountRepository) {
+        this.bankAccountRepository = bankAccountRepository;
+    }
+
+    @Override
+    public BankAccountResponseDTO addAccount(
+            BankAccountRequestDTO bankAccountRequestDTO) {
+
         BankAccount bankAccount = BankAccount.builder()
                 .id(UUID.randomUUID().toString())
                 .type(bankAccountRequestDTO.getType())
                 .balance(bankAccountRequestDTO.getBalance())
                 .currency(bankAccountRequestDTO.getCurrency())
                 .build();
-        BankAccount saveBankAccount = BankAccountRepository.save(bankAccount);
-        BankAccountResponseDTO bankAccountResponseDTO = BankAccountResponseDTO.builder()
-                .id(saveBankAccount.getId())
-                .type(saveBankAccount.getType())
-                .balance(saveBankAccount.getBalance())
-                .currency(saveBankAccount.getCurrency())
-                .build();
+
+        BankAccount saveBankAccount =
+                bankAccountRepository.save(bankAccount);
+
+        BankAccountResponseDTO bankAccountResponseDTO =
+                BankAccountResponseDTO.builder()
+                        .id(saveBankAccount.getId())
+                        .type(saveBankAccount.getType())
+                        .balance(saveBankAccount.getBalance())
+                        .currency(saveBankAccount.getCurrency())
+                        .build();
+
         return bankAccountResponseDTO;
-
-
-        return null;
     }
-
 }
-
