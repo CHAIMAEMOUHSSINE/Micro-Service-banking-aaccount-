@@ -3,6 +3,7 @@ package net.chaimae.bankaccountservice.web;
 import net.chaimae.bankaccountservice.dto.BankAccountRequestDTO;
 import net.chaimae.bankaccountservice.dto.BankAccountResponseDTO;
 import net.chaimae.bankaccountservice.entities.BankAccount;
+import net.chaimae.bankaccountservice.mappers.AccountMapper;
 import net.chaimae.bankaccountservice.repositories.BankAccountRepository;
 import net.chaimae.bankaccountservice.service.AccountService;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ public class AccountRestController {
 
     private BankAccountRepository bankAccountRepository;
     private AccountService accountService;
+    private AccountMapper accountMapper;
 
     public AccountRestController(BankAccountRepository bankAccountRepository, AccountService accountService) {
         this.bankAccountRepository = bankAccountRepository;
