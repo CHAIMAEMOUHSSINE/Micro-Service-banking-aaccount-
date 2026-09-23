@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.chaimae.bankaccountservice.enums.AccountType;
 
 import java.util.Date;
 @Data @Builder
@@ -16,6 +17,5 @@ public class BankAccountResponseDTO {
     private Date createAt;
     private Double balance;
     private String currency;
-    @Enumerated(EnumType.STRING)
-    private String type;
+    private AccountType type;
 }
