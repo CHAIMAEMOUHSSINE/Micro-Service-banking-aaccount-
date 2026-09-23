@@ -1,7 +1,10 @@
 package net.chaimae.bankaccountservice.web;
 
+import net.chaimae.bankaccountservice.dto.BankAccountRequestDTO;
+import net.chaimae.bankaccountservice.dto.BankAccountResponseDTO;
 import net.chaimae.bankaccountservice.entities.BankAccount;
 import net.chaimae.bankaccountservice.repositories.BankAccountRepository;
+import net.chaimae.bankaccountservice.service.AccountService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -13,9 +16,11 @@ import java.util.UUID;
 public class AccountRestController {
 
     private BankAccountRepository bankAccountRepository;
+    private AccountService accountService;
 
-    public AccountRestController(BankAccountRepository bankAccountRepository) {
+    public AccountRestController(BankAccountRepository bankAccountRepository, AccountService accountService) {
         this.bankAccountRepository = bankAccountRepository;
+        this.accountService = accountService;
     }
 
     @GetMapping("/bankAccounts")
@@ -32,11 +37,9 @@ public class AccountRestController {
     }
 
     @PostMapping("/bankAccounts")
-    public BankAccount createBankAccount(@RequestBody BankAccount bankAccount) {
-        if (bankAccount.getId() == null) {
-            bankAccount.setId(UUID.randomUUID().toString());
-        }
-        return bankAccountRepository.save(bankAccount);
+    public BankAccountResponseDTO createBankAccount(@RequestBody BankAccountRequestDTO requestDTO) {
+
+        return accountService.addAccount(requestDTO);
     }
 
     @PutMapping("/bankAccounts/{id}")
