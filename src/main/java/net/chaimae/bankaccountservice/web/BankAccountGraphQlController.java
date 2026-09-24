@@ -13,7 +13,7 @@ public class BankAccountGraphQlController {
     @Autowired
     private BankAccountRepository bankAccountRepository ;
     @QueryMapping
-    public List<BankAccount> accountList(){
+    public List<BankAccount> accountsList() {
         return bankAccountRepository.findAll();
     }
 
