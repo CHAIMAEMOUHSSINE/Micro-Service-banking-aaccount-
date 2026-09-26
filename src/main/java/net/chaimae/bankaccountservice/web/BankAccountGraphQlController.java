@@ -49,6 +49,7 @@ public class BankAccountGraphQlController {
         bankAccountRepository.deleteById(id);
         return true;
     }
+
     @QueryMapping
     public List<Customer> customers() {
 
