@@ -3,7 +3,9 @@ package net.chaimae.bankaccountservice.web;
 import net.chaimae.bankaccountservice.dto.BankAccountRequestDTO;
 import net.chaimae.bankaccountservice.dto.BankAccountResponseDTO;
 import net.chaimae.bankaccountservice.entities.BankAccount;
+import net.chaimae.bankaccountservice.entities.Customer;
 import net.chaimae.bankaccountservice.repositories.BankAccountRepository;
+import net.chaimae.bankaccountservice.repositories.CustomerRepository;
 import net.chaimae.bankaccountservice.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -19,6 +21,8 @@ public class BankAccountGraphQlController {
     private BankAccountRepository bankAccountRepository ;
     @Autowired
     public AccountService accountService;
+    @Autowired
+    public CustomerRepository customerRepository;
     @QueryMapping
     public List<BankAccount> accountsList() {
         return bankAccountRepository.findAll();
@@ -44,6 +48,11 @@ public class BankAccountGraphQlController {
     public boolean deleteAccount(@Argument String id) {
         bankAccountRepository.deleteById(id);
         return true;
+    }
+    @QueryMapping
+    public List<Customer> customers() {
+
+        return customerRepository.findAll();
     }
 
 
