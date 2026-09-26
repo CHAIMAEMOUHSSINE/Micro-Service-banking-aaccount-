@@ -3,7 +3,10 @@ type Query {
     accountById(id: String): BankAccount
 }
 type Mutation{
-    addAccount(bankAccount :BankAccountDTO): BankAccount
+    addAccount(bankAccount :BankAccountDTO): BankAccount,
+    updateAccount(id: String, bankAccount: BankAccountDTO): BankAccount,
+    deleteAccount(id: String): BankAccount
+
 
 
 }
